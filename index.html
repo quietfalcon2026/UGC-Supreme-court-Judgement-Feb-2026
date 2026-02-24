@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Maharani 👑</title>
+<title>Royal For My Akriti 👑</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Noto+Serif+Devanagari:wght@700&display=swap" rel="stylesheet">
 
@@ -14,7 +14,7 @@ body {
     font-family: 'Cinzel', serif;
 }
 
-/* PAGE 1 */
+/* ROYAL BACKGROUND */
 #page1 {
     height: 100vh;
     background: radial-gradient(circle at center, #ffcc66, #b8860b, #4b0000);
@@ -25,6 +25,20 @@ body {
     position: relative;
 }
 
+/* Mandala Animation */
+.mandala {
+    position: absolute;
+    width: 350px;
+    opacity: 0.15;
+    animation: rotateMandala 25s linear infinite;
+}
+
+@keyframes rotateMandala {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Greeting */
 .greeting {
     font-family: 'Noto Serif Devanagari', serif;
     font-size: 3.5rem;
@@ -34,6 +48,18 @@ body {
     z-index: 2;
 }
 
+/* Decorative Border */
+.border {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 8px double gold;
+    pointer-events: none;
+}
+
+/* Bangle Button */
 .bangle-btn {
     width: 160px;
     margin-top: 50px;
@@ -50,37 +76,19 @@ body {
 #page2 {
     display: none;
     height: 100vh;
-    background: black;
     position: relative;
     overflow: hidden;
+    background: black;
 }
 
-/* DOUBLE DOORS */
-.door-container {
-    position: absolute;
+.door {
     width: 100%;
-    height: 100%;
-    display: flex;
-}
-
-.door-left, .door-right {
-    width: 50%;
-    height: 100%;
-    background-image: url('gate.jpg');
-    background-size: cover;
-    background-position: center;
+    height: 100vh;
+    object-fit: cover;
     transition: transform 2s ease;
 }
 
-.door-left {
-    transform-origin: left;
-}
-
-.door-right {
-    transform-origin: right;
-}
-
-/* KEY */
+/* Playful Royal Key */
 .key-btn {
     position: absolute;
     bottom: 60px;
@@ -95,19 +103,6 @@ body {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-20px); }
     100% { transform: translateY(0px); }
-}
-
-/* Sparkles */
-.sparkle {
-    position: absolute;
-    color: gold;
-    font-size: 20px;
-    animation: sparkleAnim 1s ease-out forwards;
-}
-
-@keyframes sparkleAnim {
-    0% { opacity: 1; transform: scale(1); }
-    100% { opacity: 0; transform: scale(2) translateY(-50px); }
 }
 
 /* Falling petals */
@@ -135,25 +130,20 @@ video {
 
 <!-- PAGE 1 -->
 <div id="page1">
+    <div class="border"></div>
+    <img src="https://i.imgur.com/YOUR_MANDALA_IMAGE.png" class="mandala">
     <div class="greeting">खम्मा घणी आकृति 👑</div>
     <img src="bangle.jpg" class="bangle-btn" onclick="goToPage2()">
 </div>
 
 <!-- PAGE 2 -->
 <div id="page2">
-
-    <div class="door-container">
-        <div class="door-left" id="doorLeft"></div>
-        <div class="door-right" id="doorRight"></div>
-    </div>
-
-    <img src="key.jpg" class="key-btn" id="key" onclick="openDoor()">
+    <img src="gate.jpg" class="door" id="door">
+    <img src="key.jpg" class="key-btn" onclick="openDoor()">
     <video id="loveVideo" src="video.mov"></video>
-
 </div>
 
 <script>
-
 function goToPage2() {
     document.getElementById("page1").style.display = "none";
     document.getElementById("page2").style.display = "block";
@@ -161,41 +151,13 @@ function goToPage2() {
 }
 
 function openDoor() {
-
-    let key = document.getElementById("key");
-
-    // Move key toward center
-    key.style.transition = "1s";
-    key.style.right = "45%";
-    key.style.bottom = "45%";
-
-    createSparkles();
-
+    document.getElementById("door").style.transform = "rotateY(90deg)";
     setTimeout(function() {
-        document.getElementById("doorLeft").style.transform = "rotateY(-90deg)";
-        document.getElementById("doorRight").style.transform = "rotateY(90deg)";
-    }, 1000);
-
-    setTimeout(function() {
-        document.querySelector(".door-container").style.display = "none";
-        key.style.display = "none";
+        document.getElementById("door").style.display = "none";
         let video = document.getElementById("loveVideo");
         video.style.display = "block";
         video.play();
-    }, 3000);
-}
-
-function createSparkles() {
-    for(let i=0; i<20; i++){
-        let sp = document.createElement("div");
-        sp.classList.add("sparkle");
-        sp.innerHTML = "✨";
-        sp.style.left = "50%";
-        sp.style.top = "50%";
-        sp.style.position = "absolute";
-        document.getElementById("page2").appendChild(sp);
-        setTimeout(()=>sp.remove(),1000);
-    }
+    }, 2000);
 }
 
 function createFall() {
@@ -208,7 +170,6 @@ function createFall() {
         document.getElementById("page2").appendChild(el);
     }
 }
-
 </script>
 
 </body>
