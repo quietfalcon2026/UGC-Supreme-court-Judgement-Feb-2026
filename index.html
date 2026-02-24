@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Akriti ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Serif+Devanagari:wght@700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #ff9933, #ffcc66, #ff6699);
+}
+
+/* Pages */
+.page {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* FIRST PAGE */
+#page1 {
+    background: url('https://i.imgur.com/9Z1Z8Kk.png');
+    background-size: cover;
+}
+
+.greeting {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 3rem;
+    color: #8B0000;
+    text-align: center;
+    background: rgba(255,255,255,0.7);
+    padding: 20px 40px;
+    border-radius: 20px;
+}
+
+.bangle-btn {
+    margin-top: 40px;
+    width: 150px;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+}
+
+.bangle-btn:hover {
+    transform: scale(1.1) rotate(10deg);
+}
+
+/* SECOND PAGE */
+#page2 {
+    background: black;
+    display: none;
+    overflow: hidden;
+    position: relative;
+}
+
+.door {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    transition: transform 2s ease;
+    transform-origin: left;
+}
+
+.key-btn {
+    position: absolute;
+    bottom: 50px;
+    right: 30px;
+    width: 120px;
+    cursor: pointer;
+    animation: float 2s infinite ease-in-out;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+.falling {
+    position: absolute;
+    font-size: 24px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10vh); }
+    100% { transform: translateY(110vh); }
+}
+
+/* VIDEO */
+video {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page" id="page1">
+    <div class="greeting">खम्मा घणी आकृति ❤️</div>
+    <img src="bangle.jpg" class="bangle-btn" onclick="goToPage2()">
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+    <img src="gate.jpg" class="door" id="door">
+    <img src="key.jpg" class="key-btn" onclick="openDoor()">
+    
+    <video id="loveVideo" playsinline controls>
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+<script>
+
+function goToPage2() {
+    document.getElementById("page1").style.display = "none";
+    document.getElementById("page2").style.display = "flex";
+    createFalling();
+}
+
+function openDoor() {
+
+    const door = document.getElementById("door");
+    const video = document.getElementById("loveVideo");
+
+    // Open gate
+    door.style.transform = "rotateY(90deg)";
+
+    // Wait until gate animation completes
+    setTimeout(function() {
+
+        door.style.display = "none";
+
+        // Show video AFTER gate opens
+        video.style.display = "block";
+
+        // Play video with sound
+        video.play().catch(error => {
+            console.log("Playback prevented:", error);
+        });
+
+    }, 2000); // must match CSS transition time
+}
+
+function createFalling() {
+    for(let i=0; i<20; i++){
+        let el = document.createElement("div");
+        el.classList.add("falling");
+        el.innerHTML = Math.random() > 0.5 ? "🌸" : "❤️";
+        el.style.left = Math.random() * 100 + "vw";
+        el.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.getElementById("page2").appendChild(el);
+    }
+}
+
+</script>
+
+</body>
+</html>
